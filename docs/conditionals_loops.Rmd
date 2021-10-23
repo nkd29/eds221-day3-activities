@@ -1,0 +1,131 @@
+---
+title: "conditionals_loops"
+author: "Nikhil D."
+date: "10/23/2021"
+output:  
+  html_document:
+    keep_md: true
+---
+# SETUP
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(dplyr)
+library(skimr)
+library(ggplot2)
+
+```
+
+# TASK 1
+```{r, include= FALSE}
+
+# Old example
+species <- c("dog", "elephant", "goat", "dog", "dog", "elephant")
+
+# And their respective ages in human years:
+age_human <- c(3, 8, 4, 6, 12, 18)
+
+# Convert ages to "animal years" using the following:
+# 1 human year = 7 in dog years
+# 1 human year = 0.88 in elephant years
+# 1 human year = 4.7 in goat years
+
+for (i in seq_along(species)) {
+  if (species[i] == "dog") {
+    animal_age <- age_human[i] * 7
+  } else if (species[i] == "elephant") {
+    animal_age <- age_human[i] * 0.88
+  } else if (species[i] == "goat") {
+    animal_age <- age_human[i] * 4.7
+  }
+  print(paste("The",age_human[i],"year old",species[i],"is actually",round(animal_age),"in",species[i],"years"))
+}
+
+
+# Task 1
+pm2_5 <- 1220
+
+if (pm2_5 < 100) {
+  risk <- "Low to moderate risk"
+} else if (pm2_5 >=100 & pm2_5<150) {
+    risk <- "Unhealthy for sensitive people"
+} else if (pm2_5>= 150) {
+    risk <- "Health risk present"
+} 
+print(risk)
+
+```
+
+
+# TASK 2
+
+```{r, include= FALSE}
+# Task 2
+
+species <- "blue monkey whale"
+
+species
+if (stringr::str_detect(species,'whale') == TRUE) {
+  print("WHALE IS FOUND")
+} 
+```
+
+# TASK 3
+```{r, include= FALSE}
+
+# Task 3
+
+
+max_airtemp_c <- 2.1
+
+if (max_airtemp_c > 27) {
+  print("Temperature TOo high")
+} else print("Temperature OK")
+
+```
+
+# TASK 4
+```{r, include= FALSE}
+
+# Task 4
+
+base_burrito <- 6.50
+
+main_ingredent <- "steak"
+
+if (main_ingredent=="veggie") {
+  cost <- base_burrito
+} else if (main_ingredent=="chicken"){
+  cost <- base_burrito+3
+} else if (main_ingredent=="steak"){
+  cost <- base_burrito+3.25
+  }
+print(cost)
+  
+```
+
+# TASK 5
+```{r, include= FALSE}
+
+# Task 5
+
+# counts of different fish types in a fish tank
+
+fish_species <- c("goldfish", "tetras", "guppies", "mollies")
+fish_count <- c(8,10,12,23)
+
+for (i in seq(fish_count)) {
+  print(paste(100*round(fish_count[i]/sum(fish_count),2),"% of total fish in the tank are",fish_species[i]))
+}
+
+```
+# TASK 6
+```{r, include= FALSE}
+
+# Task 6
+
+for (i in seq(month.name)){
+  print(paste(month.name[i],"is month",i))
+}
+
+```

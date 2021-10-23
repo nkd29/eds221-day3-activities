@@ -1,0 +1,24 @@
+---
+title: "toolik_chem"
+author: "Nikhil D."
+date: "10/23/2021"
+output:  
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(janitor)
+
+```
+
+```{r, include= FALSE}
+
+
+toolik_biochem <- read_csv(here::here("data", "2011_Kling_Akchem.csv")) %>% clean_names
+
+```
+
