@@ -1,0 +1,62 @@
+---
+title: "day3_interactive_practice"
+author: "Nikhil D."
+date: "10/23/2021"
+output:  
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Day_3_Interactive EDS 221
+library(palmerpenguins)
+library(skimr)
+library(dplyr)
+library(tidyr)
+```
+
+```{r}
+dog_names <- c('Teddy','Khora','Banjo','Waffle')
+
+for (pupster in dog_names) {
+  print(paste("My dog's name is",pupster))
+}
+
+
+tree_height <- c(1,2,6,10)
+tree_height
+
+seq_along(tree_height)
+
+
+# more practice
+for (i in seq_along(penguins)) {
+  if (is.numeric(penguins[[i]])) {
+    penguin_med <- median(penguins[[i]], na.rm = TRUE)
+    print(penguin_med)
+  } else {
+    print("non-numeric")
+  }
+}
+
+
+names(penguins)
+head(penguins)
+unique(penguins$species)
+summary(penguins)
+skim(penguins)
+
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+
+mean(iris$Sepal.Width)
+mean(iris$Sepal.Length)
+
+iris %>% as_tibble() %>% group_by(Species) %>% 
+  summarise(across(c(1,2),mean,na.rm=TRUE))
+
+```
+
