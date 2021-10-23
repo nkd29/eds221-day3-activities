@@ -17,7 +17,7 @@ library(ggplot2)
 ```
 
 # TASK 1
-```{r, echo= FALSE}
+```{r}
 
 # Old example
 species <- c("dog", "elephant", "goat", "dog", "dog", "elephant")
@@ -59,7 +59,7 @@ print(risk)
 
 # TASK 2
 
-```{r, echo= FALSE}
+```{r}
 # Task 2
 
 species <- "blue monkey whale"
@@ -71,7 +71,7 @@ if (stringr::str_detect(species,'whale') == TRUE) {
 ```
 
 # TASK 3
-```{r, echo= FALSE}
+```{r}
 
 # Task 3
 
@@ -85,7 +85,7 @@ if (max_airtemp_c > 27) {
 ```
 
 # TASK 4
-```{r, echo= FALSE}
+```{r}
 
 # Task 4
 
@@ -105,7 +105,7 @@ print(cost)
 ```
 
 # TASK 5
-```{r, echo= FALSE}
+```{r}
 
 # Task 5
 
@@ -120,7 +120,7 @@ for (i in seq(fish_count)) {
 
 ```
 # TASK 6
-```{r, echo= FALSE}
+```{r}
 
 # Task 6
 

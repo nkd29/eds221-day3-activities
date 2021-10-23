@@ -177,29 +177,101 @@ pre code {
 </div>
 <div id="task-1" class="section level1">
 <h1>TASK 1</h1>
+<pre class="r"><code># Old example
+species &lt;- c(&quot;dog&quot;, &quot;elephant&quot;, &quot;goat&quot;, &quot;dog&quot;, &quot;dog&quot;, &quot;elephant&quot;)
+
+# And their respective ages in human years:
+age_human &lt;- c(3, 8, 4, 6, 12, 18)
+
+# Convert ages to &quot;animal years&quot; using the following:
+# 1 human year = 7 in dog years
+# 1 human year = 0.88 in elephant years
+# 1 human year = 4.7 in goat years
+
+for (i in seq_along(species)) {
+  if (species[i] == &quot;dog&quot;) {
+    animal_age &lt;- age_human[i] * 7
+  } else if (species[i] == &quot;elephant&quot;) {
+    animal_age &lt;- age_human[i] * 0.88
+  } else if (species[i] == &quot;goat&quot;) {
+    animal_age &lt;- age_human[i] * 4.7
+  }
+  print(paste(&quot;The&quot;,age_human[i],&quot;year old&quot;,species[i],&quot;is actually&quot;,round(animal_age),&quot;in&quot;,species[i],&quot;years&quot;))
+}</code></pre>
 <pre><code>## [1] &quot;The 3 year old dog is actually 21 in dog years&quot;
 ## [1] &quot;The 8 year old elephant is actually 7 in elephant years&quot;
 ## [1] &quot;The 4 year old goat is actually 19 in goat years&quot;
 ## [1] &quot;The 6 year old dog is actually 42 in dog years&quot;
 ## [1] &quot;The 12 year old dog is actually 84 in dog years&quot;
 ## [1] &quot;The 18 year old elephant is actually 16 in elephant years&quot;</code></pre>
+<pre class="r"><code># Task 1
+pm2_5 &lt;- 1220
+
+if (pm2_5 &lt; 100) {
+  risk &lt;- &quot;Low to moderate risk&quot;
+} else if (pm2_5 &gt;=100 &amp; pm2_5&lt;150) {
+    risk &lt;- &quot;Unhealthy for sensitive people&quot;
+} else if (pm2_5&gt;= 150) {
+    risk &lt;- &quot;Health risk present&quot;
+} 
+print(risk)</code></pre>
 <pre><code>## [1] &quot;Health risk present&quot;</code></pre>
 </div>
 <div id="task-2" class="section level1">
 <h1>TASK 2</h1>
+<pre class="r"><code># Task 2
+
+species &lt;- &quot;blue monkey whale&quot;
+
+species</code></pre>
 <pre><code>## [1] &quot;blue monkey whale&quot;</code></pre>
+<pre class="r"><code>if (stringr::str_detect(species,&#39;whale&#39;) == TRUE) {
+  print(&quot;WHALE IS FOUND&quot;)
+} </code></pre>
 <pre><code>## [1] &quot;WHALE IS FOUND&quot;</code></pre>
 </div>
 <div id="task-3" class="section level1">
 <h1>TASK 3</h1>
+<pre class="r"><code># Task 3
+
+
+max_airtemp_c &lt;- 2.1
+
+if (max_airtemp_c &gt; 27) {
+  print(&quot;Temperature TOo high&quot;)
+} else print(&quot;Temperature OK&quot;)</code></pre>
 <pre><code>## [1] &quot;Temperature OK&quot;</code></pre>
 </div>
 <div id="task-4" class="section level1">
 <h1>TASK 4</h1>
+<pre class="r"><code># Task 4
+
+base_burrito &lt;- 6.50
+
+main_ingredent &lt;- &quot;steak&quot;
+
+if (main_ingredent==&quot;veggie&quot;) {
+  cost &lt;- base_burrito
+} else if (main_ingredent==&quot;chicken&quot;){
+  cost &lt;- base_burrito+3
+} else if (main_ingredent==&quot;steak&quot;){
+  cost &lt;- base_burrito+3.25
+  }
+print(cost)</code></pre>
 <pre><code>## [1] 9.75</code></pre>
 </div>
 <div id="task-5" class="section level1">
 <h1>TASK 5</h1>
+<pre class="r"><code># Task 5
+
+# counts of different fish types in a fish tank
+
+fish_species &lt;- c(&quot;goldfish&quot;, &quot;tetras&quot;, &quot;guppies&quot;, &quot;mollies&quot;)
+fish_count &lt;- c(8,10,12,23)
+
+for (i in seq(fish_count)) {
+  print(paste(100*round(fish_count[i]/sum(fish_count),2),&quot;% of total fish in the tank are&quot;,fish_species[i]))
+}</code></pre>
 <pre><code>## [1] &quot;15 % of total fish in the tank are goldfish&quot;
 ## [1] &quot;19 % of total fish in the tank are tetras&quot;
 ## [1] &quot;23 % of total fish in the tank are guppies&quot;
@@ -207,6 +279,11 @@ pre code {
 </div>
 <div id="task-6" class="section level1">
 <h1>TASK 6</h1>
+<pre class="r"><code># Task 6
+
+for (i in seq(month.name)){
+  print(paste(month.name[i],&quot;is month&quot;,i))
+}</code></pre>
 <pre><code>## [1] &quot;January is month 1&quot;
 ## [1] &quot;February is month 2&quot;
 ## [1] &quot;March is month 3&quot;
