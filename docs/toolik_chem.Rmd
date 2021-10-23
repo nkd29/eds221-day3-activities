@@ -12,13 +12,16 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(here)
 library(janitor)
+library(skimr)
 
 ```
 
-```{r, include= FALSE}
-
+```{r}
 
 toolik_biochem <- read_csv(here::here("data", "2011_Kling_Akchem.csv")) %>% clean_names
+skim(toolik_biochem)
 
+inlet_biochem <- toolik_biochem %>% select(p_h,doc_u_m,tdn_u_m,site) %>% filter(site=='Toolik Inlet')
+inlet_biochem
 ```
 
