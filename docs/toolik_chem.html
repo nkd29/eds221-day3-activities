@@ -182,21 +182,78 @@ pre code {
 <pre><code>## 
 ## i Use `spec()` to retrieve the full column specification for this data.
 ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>skim(toolik_biochem)</code></pre>
+<pre class="r"><code># skim(toolik_biochem)
+
+inlet_biochem &lt;- toolik_biochem %&gt;% select(p_h,doc_u_m,tdn_u_m,site) %&gt;% filter(site==&#39;Toolik Inlet&#39;)
+inlet_biochem2 &lt;- toolik_biochem %&gt;% filter(site==&#39;Toolik Inlet&#39;) %&gt;% select(doc_u_m,tdn_u_m) 
+
+# change character vectors to numerics
+for (i in c(1,2,3)){
+  inlet_biochem[[i]] &lt;- as.numeric(inlet_biochem[[i]])
+}</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code>inlet_biochem</code></pre>
+<pre><code>## # A tibble: 26 x 4
+##      p_h doc_u_m tdn_u_m site        
+##    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       
+##  1  5.3      995    24.3 Toolik Inlet
+##  2  5.86     917    20.5 Toolik Inlet
+##  3  5.87     803    20   Toolik Inlet
+##  4  6.75     731    18.5 Toolik Inlet
+##  5  6.18     676    17   Toolik Inlet
+##  6  7.53     396    10.5 Toolik Inlet
+##  7  7.56     338    10.6 Toolik Inlet
+##  8  7.41     244    11.1 Toolik Inlet
+##  9  7.52     451    10.5 Toolik Inlet
+## 10  7.86     246    13.5 Toolik Inlet
+## # ... with 16 more rows</code></pre>
+<pre class="r"><code># calculate means
+for (i in c(1,2,3)) {
+  print(mean((inlet_biochem[[i]]),na.rm = TRUE))
+}</code></pre>
+<pre><code>## [1] 7.063182
+## [1] 409.9615
+## [1] 13.36538</code></pre>
+<pre class="r"><code>apply(X = inlet_biochem, MARGIN = 2, FUN = mean)</code></pre>
+<pre><code>## Warning in mean.default(newX[, i], ...): argument is not numeric or logical:
+## returning NA</code></pre>
+<pre><code>## Warning in mean.default(newX[, i], ...): argument is not numeric or logical:
+## returning NA
+
+## Warning in mean.default(newX[, i], ...): argument is not numeric or logical:
+## returning NA
+
+## Warning in mean.default(newX[, i], ...): argument is not numeric or logical:
+## returning NA</code></pre>
+<pre><code>##     p_h doc_u_m tdn_u_m    site 
+##      NA      NA      NA      NA</code></pre>
+<pre class="r"><code># 
+# inlet_biochem %&gt;% 
+#   summarize(across(where(is.numeric), mean, na.rm = TRUE))
+
+
+
+
+apply(X = mtcars, MARGIN = 2, FUN = mean)</code></pre>
+<pre><code>##        mpg        cyl       disp         hp       drat         wt       qsec 
+##  20.090625   6.187500 230.721875 146.687500   3.596563   3.217250  17.848750 
+##         vs         am       gear       carb 
+##   0.437500   0.406250   3.687500   2.812500</code></pre>
+<pre class="r"><code>skim(mtcars)</code></pre>
 <table>
 <caption>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
-<td align="left">toolik_biochem</td>
+<td align="left">mtcars</td>
 </tr>
 <tr class="even">
 <td align="left">Number of rows</td>
-<td align="left">154</td>
+<td align="left">32</td>
 </tr>
 <tr class="odd">
 <td align="left">Number of columns</td>
-<td align="left">45</td>
+<td align="left">11</td>
 </tr>
 <tr class="even">
 <td align="left">_______________________</td>
@@ -207,16 +264,8 @@ pre code {
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left">character</td>
-<td align="left">43</td>
-</tr>
-<tr class="odd">
-<td align="left">difftime</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
 <td align="left">numeric</td>
-<td align="left">1</td>
+<td align="left">11</td>
 </tr>
 <tr class="odd">
 <td align="left">________________________</td>
@@ -225,478 +274,6 @@ pre code {
 <tr class="even">
 <td align="left">Group variables</td>
 <td align="left">None</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: character</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">sort_chem</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">9</td>
-<td align="right">9</td>
-<td align="right">0</td>
-<td align="right">154</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">site</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">27</td>
-<td align="right">0</td>
-<td align="right">45</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">date</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">9</td>
-<td align="right">9</td>
-<td align="right">0</td>
-<td align="right">34</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">distance_km</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">elevation_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">21</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">description_treatment</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">23</td>
-<td align="right">0</td>
-<td align="right">7</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">catsort</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">water_type</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">temp_c</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">78</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">cond_u_s</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">140</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">p_h</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">108</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">alk_ueq_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">138</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">pco2_uatm</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">12</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">pch4_uatm</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">0</td>
-<td align="right">12</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">co2_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">12</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">ch4_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">8</td>
-<td align="right">0</td>
-<td align="right">12</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">doc_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">129</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">nh4_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">126</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">po4_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">126</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">no3_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">137</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">tdn_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">87</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">tdp_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">pc_ug_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">114</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">pn_ug_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">112</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">pp_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">7</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">ca_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">143</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">mg_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">141</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">na_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">121</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">k_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">138</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">si_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">123</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">so4_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">cl_u_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">oxygen_mg_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">chla_ug_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">29</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">phaeopigment_ug_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">22</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">chla_raw_ug_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">32</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">secchi_m</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">thaw_depth_cm</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">12</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">x5cm_soil_temp_c</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">15</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">x10cm_soil_temp_c</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">13</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">well_height_cm</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">10</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">discharge_lsec</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">stage_cm</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">0</td>
-<td align="right">51</td>
-<td align="right">0</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: difftime</strong></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="left">min</th>
-<th align="left">max</th>
-<th align="left">median</th>
-<th align="right">n_unique</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">time_hr_dst</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="left">17400 secs</td>
-<td align="left">74580 secs</td>
-<td align="left">45090 secs</td>
-<td align="right">121</td>
 </tr>
 </tbody>
 </table>
@@ -719,36 +296,150 @@ pre code {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">depth_m</td>
+<td align="left">mpg</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="right">0.02</td>
-<td align="right">0.03</td>
-<td align="right">0.01</td>
-<td align="right">0.01</td>
-<td align="right">0.01</td>
-<td align="right">0.01</td>
-<td align="right">0.1</td>
-<td align="left">▇▁▁▁▁</td>
+<td align="right">20.09</td>
+<td align="right">6.03</td>
+<td align="right">10.40</td>
+<td align="right">15.43</td>
+<td align="right">19.20</td>
+<td align="right">22.80</td>
+<td align="right">33.90</td>
+<td align="left">▃▇▅▁▂</td>
+</tr>
+<tr class="even">
+<td align="left">cyl</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.19</td>
+<td align="right">1.79</td>
+<td align="right">4.00</td>
+<td align="right">4.00</td>
+<td align="right">6.00</td>
+<td align="right">8.00</td>
+<td align="right">8.00</td>
+<td align="left">▆▁▃▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">disp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">230.72</td>
+<td align="right">123.94</td>
+<td align="right">71.10</td>
+<td align="right">120.83</td>
+<td align="right">196.30</td>
+<td align="right">326.00</td>
+<td align="right">472.00</td>
+<td align="left">▇▃▃▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">hp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">146.69</td>
+<td align="right">68.56</td>
+<td align="right">52.00</td>
+<td align="right">96.50</td>
+<td align="right">123.00</td>
+<td align="right">180.00</td>
+<td align="right">335.00</td>
+<td align="left">▇▇▆▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">drat</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.60</td>
+<td align="right">0.53</td>
+<td align="right">2.76</td>
+<td align="right">3.08</td>
+<td align="right">3.70</td>
+<td align="right">3.92</td>
+<td align="right">4.93</td>
+<td align="left">▇▃▇▅▁</td>
+</tr>
+<tr class="even">
+<td align="left">wt</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.22</td>
+<td align="right">0.98</td>
+<td align="right">1.51</td>
+<td align="right">2.58</td>
+<td align="right">3.33</td>
+<td align="right">3.61</td>
+<td align="right">5.42</td>
+<td align="left">▃▃▇▁▂</td>
+</tr>
+<tr class="odd">
+<td align="left">qsec</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">17.85</td>
+<td align="right">1.79</td>
+<td align="right">14.50</td>
+<td align="right">16.89</td>
+<td align="right">17.71</td>
+<td align="right">18.90</td>
+<td align="right">22.90</td>
+<td align="left">▃▇▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">vs</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.44</td>
+<td align="right">0.50</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="left">▇▁▁▁▆</td>
+</tr>
+<tr class="odd">
+<td align="left">am</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.41</td>
+<td align="right">0.50</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="left">▇▁▁▁▆</td>
+</tr>
+<tr class="even">
+<td align="left">gear</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.69</td>
+<td align="right">0.74</td>
+<td align="right">3.00</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="right">4.00</td>
+<td align="right">5.00</td>
+<td align="left">▇▁▆▁▂</td>
+</tr>
+<tr class="odd">
+<td align="left">carb</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.81</td>
+<td align="right">1.62</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+<td align="right">2.00</td>
+<td align="right">4.00</td>
+<td align="right">8.00</td>
+<td align="left">▇▂▅▁▁</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>inlet_biochem &lt;- toolik_biochem %&gt;% select(p_h,doc_u_m,tdn_u_m,site) %&gt;% filter(site==&#39;Toolik Inlet&#39;)
-inlet_biochem</code></pre>
-<pre><code>## # A tibble: 26 x 4
-##    p_h   doc_u_m tdn_u_m site        
-##    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;       
-##  1 5.3   995     24.3    Toolik Inlet
-##  2 5.86  917     20.5    Toolik Inlet
-##  3 5.87  803     20      Toolik Inlet
-##  4 6.75  731     18.5    Toolik Inlet
-##  5 6.18  676     17      Toolik Inlet
-##  6 7.53  396     10.5    Toolik Inlet
-##  7 7.56  338     10.6    Toolik Inlet
-##  8 7.41  244     11.1    Toolik Inlet
-##  9 7.52  451     10.5    Toolik Inlet
-## 10 7.86  246     13.5    Toolik Inlet
-## # ... with 16 more rows</code></pre>
 
 
 

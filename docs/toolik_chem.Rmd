@@ -19,9 +19,39 @@ library(skimr)
 ```{r}
 
 toolik_biochem <- read_csv(here::here("data", "2011_Kling_Akchem.csv")) %>% clean_names
-skim(toolik_biochem)
+# skim(toolik_biochem)
 
 inlet_biochem <- toolik_biochem %>% select(p_h,doc_u_m,tdn_u_m,site) %>% filter(site=='Toolik Inlet')
+inlet_biochem2 <- toolik_biochem %>% filter(site=='Toolik Inlet') %>% select(doc_u_m,tdn_u_m) 
+
+# change character vectors to numerics
+for (i in c(1,2,3)){
+  inlet_biochem[[i]] <- as.numeric(inlet_biochem[[i]])
+}
 inlet_biochem
+
+# calculate means
+for (i in c(1,2,3)) {
+  print(mean((inlet_biochem[[i]]),na.rm = TRUE))
+}
+
+apply(X = inlet_biochem, MARGIN = 2, FUN = mean)
+
+# 
+# inlet_biochem %>% 
+#   summarize(across(where(is.numeric), mean, na.rm = TRUE))
+
+
+
+
+apply(X = mtcars, MARGIN = 2, FUN = mean)
+skim(mtcars)
+
+
+
+
+
+
+
 ```
 
